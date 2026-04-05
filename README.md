@@ -62,5 +62,20 @@ contract BaseBuilderNFT is ERC721, ERC721URIStorage, Ownable {
         override(ERC721, ERC721URIStorage)
         returns (string memory)
     {
+    
+    function supportsInterface(bytes4 interfaceId)
+        public
+        view
+        override(ERC721, ERC721URIStorage)
+        returns (bool)
+    {
+        return super.supportsInterface(interfaceId);
+    }
+
+    // Withdraw funds
+    function withdraw() public onlyOwner {
+        payable(owner()).transfer(address(this).balance);
+    }
+}
         return super.tokenURI(tokenId);
     }
